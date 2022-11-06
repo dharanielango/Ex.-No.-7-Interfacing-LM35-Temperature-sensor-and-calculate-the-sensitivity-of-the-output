@@ -1,9 +1,9 @@
  
 
 
-### Ex. No. :7
-## Date: 
-### Interfacing LM35 Temperature sensor and calculate the sensitivity of the output
+
+
+### Ex.no:7 Interfacing LM35 Temperature sensor and calculate the sensitivity of the output
 
 ## Aim: 
 To configure internal ADC for   LPC2148 ARM 7  for interfacing LM35 temperature sensor.
@@ -192,38 +192,55 @@ Low-Impedance Output, 0.1 Ω for 1-mA Load
 Figure -08 Circuit diagram of interfacing an LM35  with ADC input pin 
 
 ## Kiel - Program 
- 
-## Tabulations and graph 
-Calculation of sensitivity 
-% of sensitivity is   S=  (T2-T1)/(A2-A1)*100
+ ```
+ #include <lpc214x.h>
+#include "LCD.h"
+#include "ADC.h"
 
+unsigned int val;
+int main()
+{
+	IO1DIR = 0xffffffff;
+	IO0DIR = 0x00000000;
+	PINSEL0 = 0x300;
+	VPBDIV = 0x02;
+	lcd_init();
+	show(" ADC Value: ");
+	while(1)
+	{
+		cmd(0x8b);
+		val = adc(0,6);
+		dat((val/1000)+48);
+		dat(((val/100)%10)+48);
+		dat(((val/10)%10)+48);
+		dat((val%10)+48);
+	}
+}
 
-
+```
+## Tabulations 
+Calculation of sensitivity % of sensitivity is   S=  (T2-T1)/(A2-A1)*100
 
 SL NO	Temperature value in °C (T)	ADC VALUE (A)	Sensitivity 
-1			-
-2			
-3			
-4			
-5			
-6			
-7			
-8			
-9			
-10			
 
 
+![o](https://github.com/dharanielango/Ex.-No.-7-Interfacing-LM35-Temperature-sensor-and-calculate-the-sensitivity-of-the-output/blob/main/4.png)
+ ## Graph
+![o](https://github.com/dharanielango/Ex.-No.-7-Interfacing-LM35-Temperature-sensor-and-calculate-the-sensitivity-of-the-output/blob/main/5.png)
  
 Figure -09 graph between temperature values and ADC output 
 
 
+ 
+
+## Output screen
+### Before
+![o](https://github.com/dharanielango/Ex.-No.-7-Interfacing-LM35-Temperature-sensor-and-calculate-the-sensitivity-of-the-output/blob/main/1.png)
+### After 
+![o](https://github.com/dharanielango/Ex.-No.-7-Interfacing-LM35-Temperature-sensor-and-calculate-the-sensitivity-of-the-output/blob/main/2.png)
+### Circuit Diagram
+![o](https://github.com/dharanielango/Ex.-No.-7-Interfacing-LM35-Temperature-sensor-and-calculate-the-sensitivity-of-the-output/blob/main/3.png)
+
+
 ## Result :
-Temperature sensor LM35 is interfaced to LPC2148 and its output is measured 
-
-## Output screen shots :
-
-
-
-
-
-
+Temperature sensor LM35 is interfaced to LPC2148 and its output is measured
